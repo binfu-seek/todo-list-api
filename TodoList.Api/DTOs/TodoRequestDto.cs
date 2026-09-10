@@ -1,0 +1,14 @@
+﻿using TodoList.Api.Models;
+
+namespace TodoList.Api.DTOs
+{
+    public class TodoRequestDto
+    {
+        public Guid Guid { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public TodoItemStatus Status { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string Notes { get; set; }
+    }
+}
