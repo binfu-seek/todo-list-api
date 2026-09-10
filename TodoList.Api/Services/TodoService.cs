@@ -19,7 +19,7 @@ namespace TodoList.Api.Services
                 Guid = Guid.NewGuid(),
                 Title = newTodo.Title,
                 Description = newTodo.Description,
-                Status = newTodo.Status,
+                Status = TodoItemStatus.New,
                 CreatedAt = DateTime.Now,
                 Notes = newTodo.Notes
             });
@@ -38,6 +38,12 @@ namespace TodoList.Api.Services
         public async Task<TodoResponseDto> DeleteTodoAsync(Guid guid)
         {
             var result = await _repository.DeleteTodoAsync(guid);
+
+            if (result == null)
+            {
+                throw new KeyNotFoundException($"Todo item with Guid {guid} not found.");
+            }
+
             return new TodoResponseDto
             {
                 Guid = result.Guid,
@@ -52,6 +58,12 @@ namespace TodoList.Api.Services
         public async Task<TodoResponseDto> GetTodoByIdAsync(Guid guid)
         {
             var result = await _repository.GetTodoByIdAsync(guid);
+
+            if (result == null)
+            {
+                throw new KeyNotFoundException($"Todo item with Guid {guid} not found.");
+            }
+
             return new TodoResponseDto
             {
                 Guid = result.Guid,
