@@ -7,7 +7,6 @@ namespace TodoList.Api.DTOs
         public string Title { get; set; }
         public string Description { get; set; }
         public TodoItemStatus Status { get; set; }
-        public DateTime CreatedAt { get; set; }
         public string Notes { get; set; }
     }
 }

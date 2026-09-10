@@ -1,4 +1,5 @@
 ﻿using TodoList.Api.DTOs;
+using TodoList.Api.Models;
 using TodoList.Api.Repositories;
 
 namespace TodoList.Api.Services
@@ -11,24 +12,69 @@ namespace TodoList.Api.Services
             _repository = repository;
         }
 
-        public Task<TodoResponseDto> CreateTodoAsync(TodoRequestDto newTodo)
+        public async Task<TodoResponseDto> CreateTodoAsync(TodoRequestDto newTodo)
         {
-            throw new NotImplementedException();
+            var result = await _repository.CreateTodoAsync(new TodoItemModel
+            {
+                Guid = Guid.NewGuid(),
+                Title = newTodo.Title,
+                Description = newTodo.Description,
+                Status = newTodo.Status,
+                CreatedAt = DateTime.Now,
+                Notes = newTodo.Notes
+            });
+
+            return new TodoResponseDto
+            {
+                Guid = result.Guid,
+                Title = result.Title,
+                Description = result.Description,
+                Status = result.Status,
+                CreatedAt = result.CreatedAt,
+                Notes = result.Notes
+            };
         }
 
-        public Task<TodoResponseDto> DeleteTodoAsync(Guid guid)
+        public async Task<TodoResponseDto> DeleteTodoAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            var result = await _repository.DeleteTodoAsync(guid);
+            return new TodoResponseDto
+            {
+                Guid = result.Guid,
+                Title = result.Title,
+                Description = result.Description,
+                Status = result.Status,
+                CreatedAt = result.CreatedAt,
+                Notes = result.Notes
+            };
         }
 
-        public Task<TodoResponseDto> GetTodoByIdAsync(Guid guid)
+        public async Task<TodoResponseDto> GetTodoByIdAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            var result = await _repository.GetTodoByIdAsync(guid);
+            return new TodoResponseDto
+            {
+                Guid = result.Guid,
+                Title = result.Title,
+                Description = result.Description,
+                Status = result.Status,
+                CreatedAt = result.CreatedAt,
+                Notes = result.Notes
+            };
         }
 
-        public Task<IEnumerable<TodoResponseDto>> GetTodosAsync()
+        public async Task<IEnumerable<TodoResponseDto>> GetTodosAsync()
         {
-            throw new NotImplementedException();
+            var results = await _repository.GetTodosAsync();
+            return results.Select(todo => new TodoResponseDto
+            {
+                Guid = todo.Guid,
+                Title = todo.Title,
+                Description = todo.Description,
+                Status = todo.Status,
+                CreatedAt = todo.CreatedAt,
+                Notes = todo.Notes
+            });
         }
     }
 }
