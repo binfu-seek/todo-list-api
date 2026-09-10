@@ -1,29 +1,34 @@
-﻿using TodoList.Api.Models;
+﻿using System.Collections.Concurrent;
+using TodoList.Api.Models;
 
 namespace TodoList.Api.Repositories
 {
     public class Repository : IRepository
     {
+        private ConcurrentDictionary<Guid, TodoItemModel> _todos = new ConcurrentDictionary<Guid, TodoItemModel>();
         public Repository() { }
 
         public Task<TodoItemModel> CreateTodoAsync(TodoItemModel newTodo)
         {
-            throw new NotImplementedException();
+            _todos[newTodo.Guid] = newTodo;
+            return Task.FromResult(newTodo);
         }
 
         public Task<TodoItemModel> DeleteTodoAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            _todos.TryRemove(guid, out TodoItemModel todo);
+            return Task.FromResult(todo);
         }
 
         public Task<TodoItemModel> GetTodoByIdAsync(Guid guid)
         {
-            throw new NotImplementedException();
+            _todos.TryGetValue(guid, out TodoItemModel todo);
+            return Task.FromResult(todo);
         }
 
         public Task<IEnumerable<TodoItemModel>> GetTodosAsync()
         {
-            throw new NotImplementedException();
+            return Task.FromResult<IEnumerable<TodoItemModel>>(_todos.Values);
         }
     }
 }
