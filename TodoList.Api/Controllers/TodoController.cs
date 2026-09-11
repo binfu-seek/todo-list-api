@@ -31,9 +31,9 @@ namespace TodoList.Api.Controllers
 
         // POST api/<TodoController>
         [HttpPost]
-        public async Task PostAsync([FromBody] TodoRequestDto value)
+        public async Task<TodoResponseDto> PostAsync([FromBody] TodoRequestDto value)
         {
-            await _todoService.CreateTodoAsync(value);
+            return await _todoService.CreateTodoAsync(value);
         }
 
         // PUT api/<TodoController>/5
