@@ -21,7 +21,7 @@ namespace TodoList.Api.Services
                 Description = newTodo.Description,
                 Status = TodoItemStatus.New,
                 CreatedAt = DateTime.Now,
-                Notes = newTodo.Notes
+                Notes = string.Empty
             });
 
             return new TodoResponseDto

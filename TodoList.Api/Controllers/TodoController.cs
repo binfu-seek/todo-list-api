@@ -36,13 +36,6 @@ namespace TodoList.Api.Controllers
             return await _todoService.CreateTodoAsync(value);
         }
 
-        // PUT api/<TodoController>/5
-        [HttpPut("{id}")]
-        public async Task Put(Guid id, [FromBody] TodoRequestDto value)
-        {
-            // Implementation for updating a todo item
-        }
-
         // DELETE api/<TodoController>/5
         [HttpDelete("{id}")]
         public async Task DeleteAsync(Guid id)
