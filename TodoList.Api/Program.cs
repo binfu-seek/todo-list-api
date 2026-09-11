@@ -9,6 +9,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+	options.AddPolicy("Frontend", policy =>
+	{
+		policy.AllowAnyOrigin()
+			.AllowAnyHeader()
+			.AllowAnyMethod();
+	});
+});
 builder.Services.AddSingleton<IRepository, Repository>();
 builder.Services.AddScoped<ITodoService, TodoService>();
 
@@ -20,6 +29,7 @@ var app = builder.Build();
 
 // app.UseAuthorization();
 app.UseExceptionHandler();
+app.UseCors("Frontend");
 
 app.MapControllers();
 
