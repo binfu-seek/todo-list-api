@@ -40,3 +40,8 @@ dotnet run --project TodoList.Api.csproj
 - **GET** -  `/api/todo/{guid}` - Load all todos
 - **POST** -  `/api/todo` - Create a todos
 - **DELETE** -  `/api/todo/{guid}` - Delete a todos
+
+## Reference
+
+For the GlobalExceptionHandler implementation, I followed this post as a reference:  
+https://milanjovanovic.tech/blog/global-error-handling-in-aspnetcore-from-middleware-to-modern-handlers
